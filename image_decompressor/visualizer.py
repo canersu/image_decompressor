@@ -1,6 +1,6 @@
 import rclpy
 from rclpy.node import Node
-from sensor_msgs.msg import CompressedImage
+from sensor_msgs.msg import CompressedImage, Image
 from cv_bridge import CvBridge
 import cv2
 import numpy as np
@@ -14,6 +14,7 @@ class ImageSubscriber(Node):
             self.image_callback,
             10
         )
+        self.publisher = self.create_publisher(Image, '/frontpi/oak/rgb/image_raw',5)
         self.bridge = CvBridge()
 
     def image_callback(self, msg):
@@ -21,7 +22,9 @@ class ImageSubscriber(Node):
         # np_arr = np.fromstring(msg.data, np.uint8)
         print('received image of type: "%s"' % msg.format)
         # image = cv2.imdecode(msg.data, cv2.IMREAD_COLOR)
-        image = self.bridge.compressed_imgmsg_to_cv2(msg, desired_encoding="bgr8")
+        image = self.bridge.compressed_imgmsg_to_cv2(msg)
+        imgmsg = self.bridge.cv2_to_imgmsg(image,encoding='bgr8')
+        self.publisher.publish(imgmsg)
 
         # Display the image
         cv2.imshow("Image", image)
