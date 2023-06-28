@@ -1,0 +1,12 @@
+<launch>
+  <arg name="image_topic1" default="/frontpi/oak/rgb/image_raw/compressed" />
+  <arg name="image_topic2" default="/pspi/oak/rgb/image_raw/compressed" />
+  <arg name="image_topic3" default="/aftpi/oak/rgb/image_raw/compressed" />
+  <arg name="image_topic4" default="/sbpi/oak/rgb/image_raw/compressed" />
+  <arg name="image_topics" default="[$(var image_topic1),$(var image_topic2),$(var image_topic3),$(var image_topic4)]" />
+
+
+  <node pkg="image_decompressor" name="image_subscriber" exec="visualizer" output="screen">
+    <param name="image_topics" value="$(var image_topics)" />
+  </node>
+</launch>
