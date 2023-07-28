@@ -51,6 +51,7 @@ class ImageSubscriber(Node):
         image = self.bridge.compressed_imgmsg_to_cv2(msg)
         # Convert CV image to ROS sensor/image
         imgmsg = self.bridge.cv2_to_imgmsg(image,encoding='bgr8')
+        imgmsg.header = msg.header
         # Publish decompressed image
         self.front_publisher.publish(imgmsg)
 
@@ -66,6 +67,7 @@ class ImageSubscriber(Node):
         image = self.bridge.compressed_imgmsg_to_cv2(msg)
         # Convert CV image to ROS sensor/image
         imgmsg = self.bridge.cv2_to_imgmsg(image,encoding='bgr8')
+        imgmsg.header = msg.header
         # Publish decompressed image
         self.portside_publisher.publish(imgmsg)
 
@@ -81,6 +83,7 @@ class ImageSubscriber(Node):
         image = self.bridge.compressed_imgmsg_to_cv2(msg)
         # Convert CV image to ROS sensor/image
         imgmsg = self.bridge.cv2_to_imgmsg(image,encoding='bgr8')
+        imgmsg.header = msg.header
         # Publish decompressed image
         self.stern_publisher.publish(imgmsg)
 
@@ -96,6 +99,7 @@ class ImageSubscriber(Node):
         image = self.bridge.compressed_imgmsg_to_cv2(msg)
         # Convert CV image to ROS sensor/image
         imgmsg = self.bridge.cv2_to_imgmsg(image,encoding='bgr8')
+        imgmsg.header = msg.header
         # Publish decompressed image
         self.starboard_publisher.publish(imgmsg)
         
